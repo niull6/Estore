@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.niu.dao.CustomerDao">
+	<insert id="insertCustomer" parameterType="Customer">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select
+			cus_id_seq.nextval from dual
+		</selectKey>
+		insert into
+		e_customer
+		values(#{id},#{username},#{password},#{zip},#{address},#{phone},#{email})
+	</insert>
+
+	<select id="selectCustomerByUsername" resultType="com.niu.bean.Customer"
+		parameterType="java.lang.String">
+		select *
+		from e_customer
+		where username = #{username}
+	</select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niu.dao.BookDao">
+
+	<resultMap type="com.niu.bean.Book" id="BookResult" autoMapping="true">
+	<id property="id" column="bid"/>	
+	<result property="name" column="bname"/>
+	<result property="price" column="bprice"/>
+	<result property="category.id" column="cid"/>
+	<result property="category.name" column="cname"/>
+	<result property="category.info" column="cinfo"/>
+	</resultMap>
+
+	<select id="findAllBooks" resultMap="BookResult" >
+		select 
+			b.id as bid,
+			b.name as bname,
+			b.price as bprice,
+			c.id as cid,
+			c.name as cname,
+			c.info as cinfo
+		from e_book b,e_category c
+		where b.categoryid=c.id
+	</select>
+	
+	<select id="findBookById" parameterType="java.lang.Integer" resultMap="BookResult">
+		select 
+			b.id as bid,
+			b.name as bname,
+			b.price as bprice,
+			c.id as cid,
+			c.name as cname,
+			c.info as cinfo
+		from e_book b,e_category c
+		where b.categoryid=c.id and b.id=#{id}
+	</select>
+
+</mapper>
